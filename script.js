@@ -1,4 +1,7 @@
-// Products array mapped to your images folder (C:\Gift Product\image\)
+// Internal Owner Phone Number (Kept Private from UI)
+const OWNER_WHATSAPP = '919819717406';
+
+// Products array mapped to your images folder (image/0.jpg, image/1.jpg, etc.)
 const products = [
     { id: 'HPK01', category: '2-in-1 Sets', name: 'Black & Gold Keyring Pen Set', image: 'image/0.jpg' },
     { id: 'HPK02', category: '2-in-1 Sets', name: 'Classic Executive Pen & Keyring', image: 'image/1.jpg' },
@@ -116,19 +119,14 @@ function addCurrentProductToCart() {
     
     updateCartUI();
     closeProductDrawer();
-    toggleCart(); // Open cart drawer to confirm
+    toggleCart();
 }
 
 function sendSingleWhatsAppInquiry() {
     if (!selectedProduct) return;
-    const phone = document.getElementById('whatsapp-number').value.replace(/[^0-9]/g, '');
-    if (!phone) {
-        alert('Please enter a valid phone number with country code in the cart.');
-        return;
-    }
 
     const message = `Hello, I am interested in inquiring about:\n\n*Code:* ${selectedProduct.id}\n*Product:* ${selectedProduct.name}\n*Quantity:* ${currentDrawerQty}\n\nPlease share the pricing and availability.`;
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
@@ -211,19 +209,13 @@ function sendToWhatsApp() {
         return;
     }
 
-    const phone = document.getElementById('whatsapp-number').value.replace(/[^0-9]/g, '');
-    if (!phone) {
-        alert('Please enter a valid phone number with country code.');
-        return;
-    }
-
     let message = "Hello, I would like to inquire about the following corporate gifts:\n\n";
     items.forEach((item, index) => {
         message += `${index + 1}. Code: *${item.id}* | Qty: *${item.qty}* (${item.name})\n`;
     });
     message += "\nPlease let me know the availability and pricing.";
 
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
