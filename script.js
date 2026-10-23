@@ -7,6 +7,7 @@ const products = [
     { id: 'HPK02', category: '2-in-1 Sets', name: 'Classic Executive Pen & Keyring', image: 'image/1.jpg' },
     { id: 'HPK03', category: '2-in-1 Sets', name: 'Gold-Trimmed Gift Set', image: 'image/2.jpg' },
     { id: 'HPK04', category: '2-in-1 Sets', name: 'Silver & Gold Pen Keyring Set', image: 'image/3.jpg' },
+    { id: 'HPK04B', category: '2-in-1 Sets', name: 'Executive Matte Black Pen & Leather Keyring Gift Box Set', image: 'image/4.jpg' },
     { id: 'HPK05', category: '2-in-1 Sets', name: 'Matte Black Roller Pen & Belt Keychain', image: 'image/5.jpg' },
     { id: 'HPK06', category: '2-in-1 Sets', name: 'All-Black Executive Pen & Keyring Set', image: 'image/6.jpg' },
     { id: 'HPK07', category: '2-in-1 Sets', name: 'Rose Gold & Black Pen Keyring Set', image: 'image/7.jpg' },
@@ -157,6 +158,7 @@ const products = [
     { id: 'LA19', category: 'Leather Accessories', name: 'Classy Dark Brown Bifold Leather Wallet', image: 'image/152.png' },
     { id: 'LA20', category: 'Travel Accessories', name: 'Classic Leather Luggage Tag with Yellow Stitch Detail Collection', image: 'image/153.png' },
     { id: 'LA21', category: 'Travel Accessories', name: 'Minimalist Tan Leather Luggage Tag with Metal Buckle', image: 'image/154.png' },
+    { id: 'LA21B', category: 'Travel Accessories', name: 'Saddle Tan Leather Luggage Tag with Button Snap Cover', image: 'image/155.png' },
     { id: 'LA22', category: 'Travel Accessories', name: 'Sleek Black Leather Luggage Tag with Button Closure Strap', image: 'image/156.png' },
     { id: 'LA23', category: 'Travel Accessories', name: 'Pristine White Leather Luggage Tag with Silver Buckle Strap', image: 'image/157.png' },
     { id: 'WI02', category: 'Writing Instruments', name: 'Stylus Tip Metallic Slim Ballpoint Pens (Blue, Red, White, Black)', image: 'image/158.png' },
@@ -245,6 +247,7 @@ const products = [
     { id: 'EXC12', category: 'Executive Sets', name: 'Ribbon Bow Corporate Presentation Box Stack (Blue, Red, Green, Black)', image: 'image/241.jpg' },
     { id: 'DA01', category: 'Desktop Accessories', name: 'Metallic Desktop Mobile Phone & Sticky Note Stand Collection', image: 'image/242.png' },
     { id: 'DA02', category: 'Desktop Accessories', name: 'Adjustable 360 Rotating Desktop Smartphone Stand', image: 'image/243.png' },
+    { id: 'DA03', category: 'Desktop Accessories', name: 'Adjustable Metal Smartphone Desk Holder Stand', image: 'image/244.png' },
     { id: 'DA04', category: 'Desktop Accessories', name: 'Multi-Angle Desktop Smartphone Holder & Organizer Variety Pack', image: 'image/245.jpg' },
     { id: 'APP01', category: 'Apparel', name: 'Classic Crewneck Cotton T-Shirt Color Collection (Assorted Colors)', image: 'image/246.jpg' },
     { id: 'APP02', category: 'Apparel', name: 'Corporate Polo Collared T-Shirt Assortment (Red, Navy, Blue, White, Grey, Yellow, Green)', image: 'image/247.jpg' },
@@ -374,7 +377,7 @@ function addCurrentProductToCart() {
         cart[selectedProduct.id] = { ...selectedProduct, qty: currentDrawerQty };
     }
     
-    updateCartUI();
+ updateCartUI();
     closeProductDrawer();
     toggleCart();
 }
