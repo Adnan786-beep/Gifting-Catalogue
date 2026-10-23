@@ -1,28 +1,28 @@
 // Internal Owner Phone Number (Kept Private from UI)
 const OWNER_WHATSAPP = '919819717406';
 
-// Category Configuration with Representative Icons & Thumbnails
-const categoryConfig = [
-    { name: 'All', icon: '✨', image: 'image/89.png' },
-    { name: '2-in-1 Sets', icon: '✒️', image: 'image/0.jpg' },
-    { name: '3-in-1 Sets', icon: '🎁', image: 'image/51.png' },
-    { name: '4-in-1 Sets', icon: '💼', image: 'image/89.png' },
-    { name: 'Cardholder Sets', icon: '🎴', image: 'image/21.jpg' },
-    { name: 'Diary Sets', icon: '📓', image: 'image/29.jpg' },
-    { name: 'Flask Sets', icon: '🥤', image: 'image/61.png' },
-    { name: 'Drinkware', icon: '☕', image: 'image/113.jpg' },
-    { name: 'Writing Instruments', icon: '🖊️', image: 'image/158.png' },
-    { name: 'Executive Sets', icon: '👔', image: 'image/85.png' },
-    { name: 'Leather Accessories', icon: '💼', image: 'image/126.jpg' },
-    { name: 'Travel Accessories', icon: '✈️', image: 'image/131.png' },
-    { name: 'Eco Sets', icon: '🌱', image: 'image/46.png' },
-    { name: 'Desktop Accessories', icon: '🖥️', image: 'image/242.png' },
-    { id: 'APP', name: 'Apparel', icon: '👕', image: 'image/246.jpg' },
-    { name: 'Powerbank Sets', icon: '🔋', image: 'image/27.jpg' },
-    { name: 'Leather Sets', icon: '🧥', image: 'image/28.jpg' }
+// Categories List
+const categories = [
+    'All',
+    '2-in-1 Sets',
+    '3-in-1 Sets',
+    '4-in-1 Sets',
+    'Cardholder Sets',
+    'Diary Sets',
+    'Flask Sets',
+    'Drinkware',
+    'Writing Instruments',
+    'Executive Sets',
+    'Leather Accessories',
+    'Travel Accessories',
+    'Eco Sets',
+    'Desktop Accessories',
+    'Apparel',
+    'Powerbank Sets',
+    'Leather Sets'
 ];
 
-// Products array mapped to your image folder
+// Products Array Mapped to Image Folder
 const products = [
     { id: 'HPK01', category: '2-in-1 Sets', name: 'Black & Gold Keyring Pen Set', image: 'image/0.jpg' },
     { id: 'HPK02', category: '2-in-1 Sets', name: 'Classic Executive Pen & Keyring', image: 'image/1.jpg' },
@@ -305,49 +305,34 @@ let activeCategory = 'All';
 let selectedProduct = null;
 let currentDrawerQty = 1;
 
-// Render App Story / Visual Card Category Layout
-function renderCategoryTabs() {
-    const tabsContainer = document.getElementById('category-tabs');
-    if (!tabsContainer) return;
+// Dropdown Populate Function
+function renderCategoryDropdown() {
+    const categoryContainer = document.getElementById('category-tabs');
+    if (!categoryContainer) return;
 
-    // Apply smooth horizontal scrolling container styles
-    tabsContainer.className = "flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none py-1";
-
-    tabsContainer.innerHTML = categoryConfig.map(cat => {
-        const isActive = activeCategory === cat.name;
-        return `
-            <div onclick="setCategory('${cat.name}')" 
-                 class="flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group transition-transform active:scale-95">
-                <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full p-0.5 transition-all duration-300 ${
-                    isActive 
-                    ? 'ring-4 ring-amber-500 ring-offset-2 scale-105 shadow-md' 
-                    : 'ring-1 ring-gray-200 hover:ring-amber-300'
-                }">
-                    <img src="${cat.image}" alt="${cat.name}" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/f59e0b?text=${encodeURIComponent(cat.icon)}';" 
-                         class="w-full h-full object-cover rounded-full bg-slate-100">
-                    <span class="absolute bottom-0 right-0 bg-slate-900 text-amber-400 text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow">
-                        ${cat.icon}
-                    </span>
-                </div>
-                <span class="text-[11px] sm:text-xs font-semibold whitespace-nowrap text-center ${
-                    isActive ? 'text-amber-600 font-bold' : 'text-gray-700 group-hover:text-slate-900'
-                }">
-                    ${cat.name}
-                </span>
-            </div>
-        `;
-    }).join('');
+    // Direct dropdown inject kar rahe hain target container mein
+    categoryContainer.innerHTML = `
+        <div class="w-full max-w-xs mx-auto py-2">
+            <select id="category-select" onchange="setCategory(this.value)" 
+                    class="w-full bg-white border border-gray-300 text-slate-900 text-xs sm:text-sm font-semibold rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block p-2.5 shadow-sm outline-none cursor-pointer">
+                ${categories.map(cat => `
+                    <option value="${cat}" ${activeCategory === cat ? 'selected' : ''}>
+                        ${cat === 'All' ? '🔍 All Categories' : cat}
+                    </option>
+                `).join('')}
+            </select>
+        </div>
+    `;
 }
 
 function setCategory(category) {
     activeCategory = category;
-    renderCategoryTabs();
     filterProducts();
 }
 
 function filterProducts() {
-    const searchTerm = document.getElementById('search-input') ? document.getElementById('search-input').value.toLowerCase() : '';
+    const searchInput = document.getElementById('search-input');
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
     const grid = document.getElementById('product-grid');
 
     const filtered = products.filter(p => {
@@ -398,7 +383,6 @@ function openProductDrawer(productId) {
     document.getElementById('drawer-category').innerText = selectedProduct.category;
     document.getElementById('drawer-image').src = selectedProduct.image;
 
-    // Show drawer and backdrop
     document.getElementById('product-drawer').classList.remove('translate-x-full');
     document.getElementById('backdrop').classList.remove('hidden');
 }
@@ -524,6 +508,6 @@ function sendToWhatsApp() {
     window.open(whatsappUrl, '_blank');
 }
 
-// Initialise on script load
-renderCategoryTabs();
+// Initialise App
+renderCategoryDropdown();
 filterProducts();
