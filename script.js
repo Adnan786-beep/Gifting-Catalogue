@@ -1,12 +1,18 @@
 // Internal Owner Phone Number (Kept Private from UI)
 const OWNER_WHATSAPP = '919819717406';
 
-// Products array mapped to your images folder (image/0.jpg, image/1.jpg, etc.)
+// Products array mapped to your image folder (image/0.jpg, image/1.jpg, etc.)
 const products = [
     { id: 'HPK01', category: '2-in-1 Sets', name: 'Black & Gold Keyring Pen Set', image: 'image/0.jpg' },
     { id: 'HPK02', category: '2-in-1 Sets', name: 'Classic Executive Pen & Keyring', image: 'image/1.jpg' },
     { id: 'HPK03', category: '2-in-1 Sets', name: 'Gold-Trimmed Gift Set', image: 'image/2.jpg' },
     { id: 'HPK04', category: '2-in-1 Sets', name: 'Silver & Gold Pen Keyring Set', image: 'image/3.jpg' },
+    { id: 'HPK05', category: '2-in-1 Sets', name: 'Matte Black Roller Pen & Belt Keychain', image: 'image/5.jpg' },
+    { id: 'HPK06', category: '2-in-1 Sets', name: 'All-Black Executive Pen & Keyring Set', image: 'image/6.jpg' },
+    { id: 'HPK07', category: '2-in-1 Sets', name: 'Rose Gold & Black Pen Keyring Set', image: 'image/7.jpg' },
+    { id: 'HPK08', category: '2-in-1 Sets', name: 'Silver Trim Pen & Rotating Keychain', image: 'image/8.jpg' },
+    { id: 'HPK09', category: '2-in-1 Sets', name: 'Gold Accent Pen & Circular Keychain', image: 'image/9.jpg' },
+    { id: 'HPK10', category: '2-in-1 Sets', name: 'Orange Leather Pen & Bottle Opener Keychain', image: 'image/10.jpg' },
     { id: 'PC01', category: 'Cardholder Sets', name: 'Ball Pen & Cardholder Gift Set', image: 'image/PC01.jpg' },
     { id: 'PM01', category: 'Powerbank Sets', name: '10000mAh Powerbank & Foldable Stand', image: 'image/PM01.jpg' },
     { id: 'WB01', category: 'Leather Sets', name: 'PU Leather Wallet & Belt Gift Set', image: 'image/WB01.jpg' },
