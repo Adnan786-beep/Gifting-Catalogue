@@ -1,7 +1,28 @@
 // Internal Owner Phone Number (Kept Private from UI)
 const OWNER_WHATSAPP = '919819717406';
 
-// Products array mapped to your image folder (image/0.jpg, image/1.jpg, etc.)
+// Category Configuration with Representative Icons & Thumbnails
+const categoryConfig = [
+    { name: 'All', icon: '✨', image: 'image/89.png' },
+    { name: '2-in-1 Sets', icon: '✒️', image: 'image/0.jpg' },
+    { name: '3-in-1 Sets', icon: '🎁', image: 'image/51.png' },
+    { name: '4-in-1 Sets', icon: '💼', image: 'image/89.png' },
+    { name: 'Cardholder Sets', icon: '🎴', image: 'image/21.jpg' },
+    { name: 'Diary Sets', icon: '📓', image: 'image/29.jpg' },
+    { name: 'Flask Sets', icon: '🥤', image: 'image/61.png' },
+    { name: 'Drinkware', icon: '☕', image: 'image/113.jpg' },
+    { name: 'Writing Instruments', icon: '🖊️', image: 'image/158.png' },
+    { name: 'Executive Sets', icon: '👔', image: 'image/85.png' },
+    { name: 'Leather Accessories', icon: '💼', image: 'image/126.jpg' },
+    { name: 'Travel Accessories', icon: '✈️', image: 'image/131.png' },
+    { name: 'Eco Sets', icon: '🌱', image: 'image/46.png' },
+    { name: 'Desktop Accessories', icon: '🖥️', image: 'image/242.png' },
+    { id: 'APP', name: 'Apparel', icon: '👕', image: 'image/246.jpg' },
+    { name: 'Powerbank Sets', icon: '🔋', image: 'image/27.jpg' },
+    { name: 'Leather Sets', icon: '🧥', image: 'image/28.jpg' }
+];
+
+// Products array mapped to your image folder
 const products = [
     { id: 'HPK01', category: '2-in-1 Sets', name: 'Black & Gold Keyring Pen Set', image: 'image/0.jpg' },
     { id: 'HPK02', category: '2-in-1 Sets', name: 'Classic Executive Pen & Keyring', image: 'image/1.jpg' },
@@ -284,15 +305,39 @@ let activeCategory = 'All';
 let selectedProduct = null;
 let currentDrawerQty = 1;
 
-const categories = ['All', ...new Set(products.map(p => p.category))];
-
+// Render App Story / Visual Card Category Layout
 function renderCategoryTabs() {
     const tabsContainer = document.getElementById('category-tabs');
-    tabsContainer.innerHTML = categories.map(cat => `
-        <button onclick="setCategory('${cat}')" class="px-2.5 py-1 rounded-full whitespace-nowrap text-[11px] sm:text-xs font-semibold transition ${activeCategory === cat ? 'bg-amber-500 text-slate-900 shadow-sm' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}">
-            ${cat}
-        </button>
-    `).join('');
+    if (!tabsContainer) return;
+
+    // Apply smooth horizontal scrolling container styles
+    tabsContainer.className = "flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none py-1";
+
+    tabsContainer.innerHTML = categoryConfig.map(cat => {
+        const isActive = activeCategory === cat.name;
+        return `
+            <div onclick="setCategory('${cat.name}')" 
+                 class="flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group transition-transform active:scale-95">
+                <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full p-0.5 transition-all duration-300 ${
+                    isActive 
+                    ? 'ring-4 ring-amber-500 ring-offset-2 scale-105 shadow-md' 
+                    : 'ring-1 ring-gray-200 hover:ring-amber-300'
+                }">
+                    <img src="${cat.image}" alt="${cat.name}" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/f59e0b?text=${encodeURIComponent(cat.icon)}';" 
+                         class="w-full h-full object-cover rounded-full bg-slate-100">
+                    <span class="absolute bottom-0 right-0 bg-slate-900 text-amber-400 text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow">
+                        ${cat.icon}
+                    </span>
+                </div>
+                <span class="text-[11px] sm:text-xs font-semibold whitespace-nowrap text-center ${
+                    isActive ? 'text-amber-600 font-bold' : 'text-gray-700 group-hover:text-slate-900'
+                }">
+                    ${cat.name}
+                </span>
+            </div>
+        `;
+    }).join('');
 }
 
 function setCategory(category) {
@@ -302,7 +347,7 @@ function setCategory(category) {
 }
 
 function filterProducts() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const searchTerm = document.getElementById('search-input') ? document.getElementById('search-input').value.toLowerCase() : '';
     const grid = document.getElementById('product-grid');
 
     const filtered = products.filter(p => {
@@ -377,7 +422,7 @@ function addCurrentProductToCart() {
         cart[selectedProduct.id] = { ...selectedProduct, qty: currentDrawerQty };
     }
     
- updateCartUI();
+    updateCartUI();
     closeProductDrawer();
     toggleCart();
 }
@@ -424,7 +469,7 @@ function updateCartUI() {
     }
 
     cartItemsContainer.innerHTML = Object.values(cart).map(item => `
-        <div class="py-3 flex justify-between items-center gap-2">
+        <div class="py-3 flex justify-between items-center gap-2 border-b">
             <div class="flex-grow">
                 <p class="font-bold text-xs text-slate-900">${item.id} - ${item.name}</p>
                 <p class="text-[10px] text-gray-500">${item.category}</p>
